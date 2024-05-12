@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" build-on-make="true" name="sstf:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/sstf_jar</output-path>
+    <root id="archive" name="sstf.jar">
+      <element id="module-output" name="sstf" />
+    </root>
+  </artifact>
+</component>
