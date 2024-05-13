@@ -46,9 +46,10 @@ public class Parser {
             String line;
             int i = 0;
             while ((line = br.readLine()) != null) {
-                if(line.indexOf("│") != line.lastIndexOf("│") || !line.contains("│")) throw new ParserException("Format Invalid");
+                if(line.indexOf("│") != line.lastIndexOf("│")) throw new ParserException("Format Invalid Code 1");
+                if(!line.contains("│")) throw new ParserException("Format Invalid Code 2");
                 String nam = line.substring(0, line.indexOf("│"));
-                String dat = line.substring(line.indexOf("│"));
+                String dat = line.substring(line.indexOf("│")+1);
                 settings[i] = new Setting(nam, dat);
                 i++;
             }
