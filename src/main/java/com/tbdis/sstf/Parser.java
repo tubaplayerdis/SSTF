@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -24,7 +25,7 @@ public class Parser {
 
         FileReader reader = null;
         try{
-            reader = new FileReader(file);
+            reader = new FileReader(file, StandardCharsets.UTF_8);
         } catch (IOException e){
             throw new ParserException("Unable to create File Reader: "+e.getMessage());
         }
@@ -48,6 +49,10 @@ public class Parser {
             while ((line = br.readLine()) != null) {
                 if(line.indexOf("│") != line.lastIndexOf("│")) throw new ParserException("Format Invalid");
                 if(!line.contains("│")) {
+                    String nam = "inv";
+                    String dat = "inv";
+                    settings[i] = new Setting(nam, dat);
+                    i++;
                     continue;
                 }
                 String nam = line.substring(0, line.indexOf("│"));

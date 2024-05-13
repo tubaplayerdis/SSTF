@@ -3,6 +3,7 @@ package com.tbdis.sstf;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -20,7 +21,7 @@ public class Writer {
     public static void WriteSettings(File file, Setting[] settings) throws WriterException {
         FileWriter writer = null;
         try {
-            writer = new FileWriter(file);
+            writer = new FileWriter(file, StandardCharsets.UTF_8);
         } catch (IOException e) {
             throw new WriterException("Unable to create File Writer: "+e.getMessage());
         }
