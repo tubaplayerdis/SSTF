@@ -1,3 +1,5 @@
+import os.path;
+
 #Add impl
 class SSTFSetting:
     def __init__(self, Name: str, Data: str):
@@ -15,5 +17,19 @@ class SSTF:
 
     @staticmethod
     def parsesettings(path):
-        return
+        retlist = []
+        if not os.path.isfile(path):
+            return
+        file = open(path, "r")
+        lines = file.readlines()
+        for line in lines:
+            if not line.__contains__("│"):
+                continue
+            if line.index("│") != line.rindex("│"):
+                continue
+            nam = line[0:line.index("│")]
+            dat = line[line.index("│"):line.__len__()]
+            setting = SSTFSetting(nam, dat)
+            retlist.append(setting)
+        return retlist
         #Finish later
