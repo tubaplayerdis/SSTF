@@ -13,6 +13,7 @@ class SSTF:
         for i in settings:
             if(type(i) is SSTFSetting):
                 fp.write(i.name+"│"+i.data)
+                fp.write(os.linesep)
         fp.close()
 
     @staticmethod
@@ -28,7 +29,8 @@ class SSTF:
             if line.index("│") != line.rindex("│"):
                 continue
             nam = line[0:line.index("│")]
-            dat = line[line.index("│"):line.__len__()]
+            dat = line[line.index("│")+1:line.__len__()]
+            dat = dat.strip(os.linesep)
             setting = SSTFSetting(nam, dat)
             retlist.append(setting)
         return retlist
