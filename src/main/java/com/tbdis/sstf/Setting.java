@@ -10,4 +10,10 @@ public class Setting extends Member {
     public Setting(String name, int data) {
         super(name, String.valueOf(data));
     }
+    public Setting(String name, float data) {
+        super(name, String.valueOf(data));
+    }
+    public Setting(String name, double data) {
+        super(name, String.valueOf(data));
+    }
 }
