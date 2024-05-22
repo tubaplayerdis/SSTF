@@ -10,7 +10,8 @@ public class ParserTest {
         File file = new File("parsertest.txt");
         Setting[] settings = null;
         try {
-            settings = Parser.ParseSettings(file);
+            settings = (Setting[]) Parser.ParseFile(file);
+            //Should change settings to Member[]
         } catch (ParserException e) {
             System.out.println("Error: "+e.getMessage());
         }

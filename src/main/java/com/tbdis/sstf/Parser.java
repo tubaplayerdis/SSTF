@@ -8,19 +8,21 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.Arrays;
 
 public class Parser {
-    public static Setting[] ParseSettings(String path) throws ParserException {
+    public static Member[] ParseFile(String path) throws ParserException {
         File file = new File(path);
-        return ParseSettings(file);
+        return ParseFile(file);
     }
 
-    public static Setting[] ParseSettings(Path path) throws ParserException {
+    public static Member[] ParseFile(Path path) throws ParserException {
         File file = new File(String.valueOf(path));
-        return ParseSettings(file);
+        return ParseFile(file);
     }
 
-    public static Setting[] ParseSettings(File file) throws ParserException {
+    public static Member[] ParseFile(File file) throws ParserException {
         if(!file.exists()) throw new ParserException("File does not exist!");
 
         FileReader reader = null;
@@ -41,23 +43,29 @@ public class Parser {
             throw new ParserException("Number of lines invalid");
         }
 
-        Setting[] settings = new Setting[lines];
+        Member[] members = new Member[lines];
 
         try (BufferedReader br = new BufferedReader(reader)) {
             String line;
             int i = 0;
             while ((line = br.readLine()) != null) {
-                if(line.indexOf("│") != line.lastIndexOf("│")) throw new ParserException("Format Invalid");
+                if(line.indexOf("│") != line.lastIndexOf("│")) {
+                    String nam = "inv";
+                    String dat = "inv";
+                    members[i] = new Setting(nam, dat);
+                    i++;
+                    continue;
+                }
                 if(!line.contains("│")) {
                     String nam = "inv";
                     String dat = "inv";
-                    settings[i] = new Setting(nam, dat);
+                    members[i] = new Setting(nam, dat);
                     i++;
                     continue;
                 }
                 String nam = line.substring(0, line.indexOf("│"));
                 String dat = line.substring(line.indexOf("│")+1);
-                settings[i] = new Setting(nam, dat);
+                members[i] = new Setting(nam, dat);
                 i++;
             }
         } catch (IOException e) {
@@ -70,6 +78,28 @@ public class Parser {
             throw new ParserException("Unable to close reader: "+e.getMessage());
         }
 
-        return settings;
+        return members;
+    }
+
+    public static Member[] ParseData(String[] lines) throws ParserException {
+        ArrayList<Member> members = new ArrayList<>();
+        for (String line : lines) {
+            if(line.indexOf("│") != line.lastIndexOf("│")) {
+                String nam = "inv";
+                String dat = "inv";
+                members.add(new Member(nam, dat));
+                continue;
+            }
+            if(!line.contains("│")) {
+                String nam = "inv";
+                String dat = "inv";
+                members.add(new Member(nam, dat));
+                continue;
+            }
+            String nam = line.substring(0, line.indexOf("│"));
+            String dat = line.substring(line.indexOf("│")+1);
+            members.add(new Member(nam, dat));
+        }
+        return members.toArray(new Member[0]);
     }
 }

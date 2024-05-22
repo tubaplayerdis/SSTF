@@ -14,21 +14,21 @@ public class GenericTest {
         //Create File
         File file = new File("test.txt");
         try {
-            Writer.WriteSettings(file, CreateSettingTestArray());
+            Writer.WriteFile(file, CreateSettingTestArray());
         } catch (WriterException e) {
             System.out.println("Error with Writer: "+e.getMessage());
         }
-        Setting[] settings = null;
+        Member[] members = null;
         try {
-            settings = Parser.ParseSettings(file);
+            members = Parser.ParseFile(file);
         } catch (ParserException e) {
             System.out.println("Error with parser: "+e.getMessage());
         }
         //If all is good
-        assert settings != null;
+        assert members != null;
         System.out.println("Parsed Data!");
-        for(Setting setting : settings){
-            System.out.println("Name: "+setting.Name+" Data: "+setting.Data);
+        for(Member member : members){
+            System.out.println("Name: "+member.Name+" Data: "+member.Data);
         }
 
     }

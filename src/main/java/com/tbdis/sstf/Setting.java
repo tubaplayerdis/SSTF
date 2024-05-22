@@ -1,11 +1,13 @@
 package com.tbdis.sstf;
 
-public class Setting {
-    public Setting() {};
+public class Setting extends Member {
+    public Setting() {
+        super("null", "null");
+    };
     public Setting(String name, String data) {
-        Name = name;
-        Data = data;
+        super(name, data);
     }
-    public String Name;
-    public String Data;
+    public Setting(String name, int data) {
+        super(name, String.valueOf(data));
+    }
 }

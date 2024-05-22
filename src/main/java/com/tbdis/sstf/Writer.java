@@ -10,15 +10,15 @@ import java.nio.file.Paths;
 import java.util.Objects;
 
 public class Writer {
-    public static void WriteSettings(String path, Setting[] settings) throws  WriterException {
+    public static void WriteFile(String path, Member[] members) throws  WriterException {
         File file = new File(path);
-        WriteSettings(file, settings);
+        WriteFile(file, members);
     }
-    public static void WriteSettings(Path path, Setting[] settings) throws WriterException {
+    public static void WriteFile(Path path, Member[] members) throws WriterException {
         File file = new File(String.valueOf(path));
-        WriteSettings(file, settings);
+        WriteFile(file, members);
     }
-    public static void WriteSettings(File file, Setting[] settings) throws WriterException {
+    public static void WriteFile(File file, Member[] members) throws WriterException {
         FileWriter writer = null;
         try {
             writer = new FileWriter(file, StandardCharsets.UTF_8);
@@ -27,8 +27,8 @@ public class Writer {
         }
 
         try {
-            for (Setting setting : settings){
-                writer.write(setting.Name+"│"+setting.Data);
+            for (Member member : members){
+                writer.write(member.Name+"│"+member.Data);
                 writer.write(System.lineSeparator());
             }
         } catch (IOException e) {
