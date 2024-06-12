@@ -1,0 +1,4 @@
+How to build the file:
+mvn clean package
+mvn install
+That's it! Make sure you have access to local repository
